@@ -11,10 +11,14 @@ fn main_loop(fd: RawFd) {
 
     loop {
         let nbytes = read(fd, &mut buf).unwrap();
-        print!(" {: >3} bytes of {:02X}:", nbytes, buf[0]);
 
-        for i in 1..nbytes {
-            print!(" {:02X}", buf[i]);
+        let report_nr = buf[0];
+        let report_bytes = &buf[1..nbytes];
+
+        print!(" {: >3} bytes of {:02X}:", nbytes, report_nr);
+
+        for b in report_bytes {
+            print!(" {:02X}", b);
         }
         println!("");
     }
